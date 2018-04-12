@@ -2,9 +2,13 @@
   "name": "poker-tools",
   "version": "1.0.0",
   "description": "A set of poker tools (equity calculating, checking winner of hand, etc).",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register"
+    "init": "mkdir dist",
+    "test": "mocha --require babel-core/register",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean && npm run init",
+    "build": "babel ./src -d ./dist"
   },
   "repository": {
     "type": "git",
@@ -25,14 +29,17 @@
   },
   "homepage": "https://github.com/N1ghtly/poker-tools#readme",
   "dependencies": {
-    "lodash": "^4.17.5",
-    "babel-preset-env": "^1.6.1"
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
     "@babel/node": "^7.0.0-beta.44",
     "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "mocha": "^5.0.5"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
