@@ -8,6 +8,13 @@ The changes are:
 2. Removed the Array subclassing since this is not yet widely supported.
 3. Exposed another utility function `calculateWinner([cardgroups], board)`.
 
+*Only Texas Hold'em is supported.*
+
+What can you do with this library:
+
+- Calculate equities of hands given a board (optional)
+- Calculate the winner of a set of hands given a board (optional)
+
 Example code:
 
 ```js

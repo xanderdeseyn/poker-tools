@@ -4,7 +4,7 @@
   "description": "A set of poker tools (equity calculating, checking winner of hand, etc).",
   "main": "index.js",
   "scripts": {
-    "test": "babel-node test.js"
+    "test": "mocha --require babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,8 @@
     "@babel/core": "^7.0.0-beta.44",
     "@babel/node": "^7.0.0-beta.44",
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
   }
 }

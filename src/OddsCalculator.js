@@ -44,6 +44,26 @@ export default class OddsCalculator {
       throw new Error('The board must contain 0, 3, 4 or 5 cards');
     }
 
+    // Detect duplicate cards
+    for (let i = 0; i < cardgroups.length; i++) {
+      for (let j = i + 1; j < cardgroups.length; j++) {
+        for (const card of cardgroups[j].getCards()) {
+          if (cardgroups[i].containsCard(card)) {
+            throw new Error('Detected duplicate cards');
+          }
+        }
+      }
+    }
+    if (board && board.length()) {
+      for (let i = 0; i < cardgroups.length; i++) {
+        for (const card of cardgroups[i].getCards()) {
+          if (board.containsCard(card)) {
+            throw new Error('Detected duplicate cards');
+          }
+        }
+      }
+    }
+
     iterations = iterations || 0;
     let odds = [];
     let handranks = [];
@@ -135,11 +155,11 @@ export default class OddsCalculator {
           index5 = _.random(0, remainingCount - 1);
         } while (index5 === index1 || index5 === index2 || index5 === index3 || index5 === index4);
         const simulatedBoard = new CardGroup([
-          remainingCards[index1],
-          remainingCards[index2],
-          remainingCards[index3],
-          remainingCards[index4],
-          remainingCards[index5]
+          remainingCards.getCard(index1),
+          remainingCards.getCard(index2),
+          remainingCards.getCard(index3),
+          remainingCards.getCard(index4),
+          remainingCards.getCard(index5),
         ]);
         selectWinners(simulatedBoard);
       }
