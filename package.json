@@ -1,0 +1,36 @@
+{
+  "name": "poker-tools",
+  "version": "1.0.0",
+  "description": "A set of poker tools (equity calculating, checking winner of hand, etc).",
+  "main": "index.js",
+  "scripts": {
+    "test": "babel-node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N1ghtly/poker-tools.git"
+  },
+  "keywords": [
+    "poker",
+    "tools",
+    "equity",
+    "calculator",
+    "texas",
+    "holdem"
+  ],
+  "author": "Xander Deseyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/N1ghtly/poker-tools/issues"
+  },
+  "homepage": "https://github.com/N1ghtly/poker-tools#readme",
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/node": "^7.0.0-beta.44",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
