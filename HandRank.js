@@ -161,7 +161,7 @@ export default class HandRank {
     if (pairRanks.length >= 2) {
       const pairedHigherCards = _.filter(cardgroup.getCards(), { rank: pairRanks[0] });
       const pairedLowerCards = _.filter(cardgroup.getCards(), { rank: pairRanks[1] });
-      const unpairedCards = _.reject(_.reject(cardgroup, { rank: pairRanks[0] }), { rank: pairRanks[1] });
+      const unpairedCards = _.reject(_.reject(cardgroup.getCards(), { rank: pairRanks[0] }), { rank: pairRanks[1] });
       return new HandRank(HandRank.TWO_PAIRS, new CardGroup(pairedHigherCards.concat(pairedLowerCards).concat(unpairedCards).slice(0, 5)));
     }
     // One pair

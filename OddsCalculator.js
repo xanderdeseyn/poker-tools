@@ -35,8 +35,7 @@ export default class OddsCalculator {
       }
     }
 
-    console.log(highestRankingIndex);
-      
+    return highestRankingIndex;
   }
 
 
@@ -82,7 +81,7 @@ export default class OddsCalculator {
         }
       }
     }
-    
+
     const remainingCount = remainingCards.length();
     // Figure out hand ranking
     handranks = cardgroups.map((cardgroup) => { return HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup); });
