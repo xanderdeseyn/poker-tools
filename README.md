@@ -18,7 +18,7 @@ What can you do with this library:
 Example code:
 
 ```js
-import { CardGroup, OddsCalculator } from './index';
+import { CardGroup, OddsCalculator } from 'poker-tools';
 
 const player1Cards = CardGroup.fromString('JhJs');
 const player2Cards = CardGroup.fromString('JdQc');
@@ -42,6 +42,7 @@ Output:
 ```
 Player #1 - Jh Js - 75%
 Player #2 - Jd Qc - 24%
+Tie - Jd Qc - 1%
 [ 0 ]
 [ 1 ]
 ```
