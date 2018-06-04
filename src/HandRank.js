@@ -179,47 +179,37 @@ export default class HandRank {
     switch (this.rank) {
       case HandRank.STRAIGHT_FLUSH:
         if (this.highcards.getCard(0).getRank() === Rank.ACE) {
-          s = 'Royal flush';
+          s = 'a royal flush';
         }
         else {
-          s = _.capitalize(this.highcards.getCard(0).toString(false, true)) + ' high straight flush';
+          s = 'a straight flush';
         }
         break;
       case HandRank.QUADS:
-        s = 'Quad ' + this.highcards.getCard(0).toString(false, true, true);
+        s = 'quads ' + this.highcards.getCard(0).toString(false, true, true);
         showHighcards = 1;
         break;
       case HandRank.FULL_HOUSE:
-        s = `Full house: ${this.highcards.getCard(0).toString(false, true, true)} full of ${this.highcards.getCard(4).toString(false, true, true)}`;
+        s = `a full house (${this.highcards.getCard(0).toString(false, true, true)} full of ${this.highcards.getCard(4).toString(false, true, true)})`;
         break;
       case HandRank.FLUSH:
-        s = _.capitalize(this.highcards.getCard(0).toString(false, true)) + ' high flush';
+        s = 'a flush';
         break;
       case HandRank.STRAIGHT:
-        s = _.capitalize(this.highcards.getCard(0).toString(false, true)) + ' high straight';
+        s = 'a straight (' + this.highcards.getCard(0).toString(false, true) + 'high';
         break;
       case HandRank.TRIPS:
-        s = `Trip ${this.highcards.getCard(0).toString(false, true, true)}`;
-        showHighcards = 2;
+        s = `trips (${this.highcards.getCard(0).toString(false, true, true)})`;
         break;
       case HandRank.TWO_PAIRS:
-        s = `Two pairs: ${this.highcards.getCard(0).toString(false, true, true)} and ${this.highcards.getCard(2).toString(false, true, true)}`;
-        showHighcards = 1;
+        s = `two pair of ${this.highcards.getCard(0).toString(false, true, true)} and ${this.highcards.getCard(2).toString(false, true, true)}`;
         break;
       case HandRank.PAIR:
-        s = `Pair of ${this.highcards.getCard(0).toString(false, true, true)}`;
-        showHighcards = 3;
+        s = `a pair of ${this.highcards.getCard(0).toString(false, true, true)}`;
         break;
       default:
-        s = 'High card';
-        showHighcards = 5;
+        s = `${this.highcards.getCard(0).toString(false, true, true)} high`;
         break;
-    }
-    if (showHighcards > 0) {
-      const highcards = this.highcards.getCards().slice(5 - showHighcards, 5).map((h) => {
-        return h.toString(false);
-      });
-      s = s + ` (${highcards.join(',')} high)`;
     }
     return s;
   }
