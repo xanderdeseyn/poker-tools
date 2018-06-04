@@ -95,6 +95,17 @@ describe('OddsCalculator', () => {
     expect(result.equities[1].getEquity()).to.equal(33);
   });
 
+  it('winner', () => {
+    const player1Cards = CardGroup.fromString('JhJs');
+    const player2Cards = CardGroup.fromString('JdQc');
+    const board = CardGroup.fromString('7s9sTs');
+
+    const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
+
+    console.log(result.winner);
+    console.log(result.hands);
+  });
+
   it('no board', () => {
     const player1Cards = CardGroup.fromString('AcAh');
     const player2Cards = CardGroup.fromString('7c7h');

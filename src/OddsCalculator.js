@@ -35,7 +35,7 @@ export default class OddsCalculator {
       }
     }
 
-    return highestRankingIndex;
+    return { winner: highestRankingIndex, hands: highestRankingIndex.map(i => handranks[i].toString()) };
   }
 
 

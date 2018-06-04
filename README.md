@@ -31,11 +31,10 @@ console.log(`Player #1 - ${player1Cards} - ${result.equities[0].getEquity()}%`);
 console.log(`Player #2 - ${player2Cards} - ${result.equities[1].getEquity()}%`);
 console.log(`Tie - ${player2Cards} - ${result.equities[1].getTiePercentage()}%`);
 
-const winner = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
-const winner2 = OddsCalculator.calculateWinner([player1Cards, player2Cards], board2);
+const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
 
-console.log(winner);
-console.log(winner2);
+console.log(result.winner);
+console.log(result.hands);
 ```
 
 Output:
@@ -44,7 +43,7 @@ Player #1 - Jh Js - 75%
 Player #2 - Jd Qc - 24%
 Tie - Jd Qc - 1%
 [ 0 ]
-[ 1 ]
+[ 'Pair of jacks (T,9,7 high)' ]
 ```
 
 Note that `calculateWinner` returns an array because there might be multiple winners (tie).
