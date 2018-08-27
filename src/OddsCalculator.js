@@ -1,10 +1,10 @@
-import Card from './Card';
-import Rank from './Rank';
-import Suit from './Suit';
-import CardGroup from './CardGroup';
-import HandRank from './HandRank';
-import HandEquity from './HandEquity';
-import _ from 'lodash';
+import Card from "./Card";
+import Rank from "./Rank";
+import Suit from "./Suit";
+import CardGroup from "./CardGroup";
+import HandRank from "./HandRank";
+import HandEquity from "./HandEquity";
+import _ from "lodash";
 
 export default class OddsCalculator {
   constructor(equities, handranks, iterations, elapsedTime) {
@@ -14,34 +14,36 @@ export default class OddsCalculator {
     this.elapsedTime = elapsedTime;
   }
 
-  getIterationCount() { return this.iterations; }
-  getElapsedTime() { return this.elapsedTime; }
+  getIterationCount() {
+    return this.iterations;
+  }
+  getElapsedTime() {
+    return this.elapsedTime;
+  }
 
   static calculateWinner(cardgroups, board) {
-    const handranks = cardgroups.map((cardgroup) => { return HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup); });
+    const handranks = cardgroups.map((cardgroup, i) => ({
+      index: i,
+      handrank: HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup)
+    }));
 
-    let highestRanking = null;
-    let highestRankingIndex = [];
-    for (let i = 0; i < cardgroups.length; i++) {
-      const handranking = HandRank.evaluate(cardgroups[i].concat(board));
-      const isBetter = highestRanking ? handranking.compareTo(highestRanking) : -1;
+    handranks.sort((a, b) => b.handrank.compareTo(a.handrank));
 
-      if (highestRanking === null || isBetter >= 0) {
-        if (isBetter == 0)
-          highestRankingIndex.push(i);
-        else
-          highestRankingIndex = [i];
-        highestRanking = handranking;
+    const result = [[handranks[0]]];
+    for (let i = 1; i < handranks.length; i++) {
+      if (handranks[i].handrank.compareTo(result[result.length - 1][0].handrank) === 0) {
+        result[result.length - 1].push(handranks[i]);
+      } else {
+        result.push([handranks[i]]);
       }
     }
 
-    return { winner: highestRankingIndex, hands: highestRankingIndex.map(i => handranks[i].toString()) };
+    return result;
   }
-
 
   static calculateEquity(cardgroups, board, iterations) {
     if (board && [0, 3, 4, 5].indexOf(board.length()) === -1) {
-      throw new Error('The board must contain 0, 3, 4 or 5 cards');
+      throw new Error("The board must contain 0, 3, 4 or 5 cards");
     }
 
     // Detect duplicate cards
@@ -49,7 +51,7 @@ export default class OddsCalculator {
       for (let j = i + 1; j < cardgroups.length; j++) {
         for (const card of cardgroups[j].getCards()) {
           if (cardgroups[i].containsCard(card)) {
-            throw new Error('Detected duplicate cards');
+            throw new Error("Detected duplicate cards");
           }
         }
       }
@@ -58,7 +60,7 @@ export default class OddsCalculator {
       for (let i = 0; i < cardgroups.length; i++) {
         for (const card of cardgroups[i].getCards()) {
           if (board.containsCard(card)) {
-            throw new Error('Detected duplicate cards');
+            throw new Error("Detected duplicate cards");
           }
         }
       }
@@ -104,22 +106,22 @@ export default class OddsCalculator {
 
     const remainingCount = remainingCards.length();
     // Figure out hand ranking
-    handranks = cardgroups.map((cardgroup) => { return HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup); });
-    const equities = cardgroups.map((cardgroup) => { return new HandEquity(); });
+    handranks = cardgroups.map(cardgroup => {
+      return HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup);
+    });
+    const equities = cardgroups.map(cardgroup => {
+      return new HandEquity();
+    });
 
-    const selectWinners = function (simulatedBoard) {
+    const selectWinners = function(simulatedBoard) {
       let highestRanking = null;
       let highestRankingIndex = [];
       for (let i = 0; i < cardgroups.length; i++) {
         const handranking = HandRank.evaluate(cardgroups[i].concat(simulatedBoard));
-        const isBetter = highestRanking
-          ? handranking.compareTo(highestRanking)
-          : -1;
+        const isBetter = highestRanking ? handranking.compareTo(highestRanking) : -1;
         if (highestRanking === null || isBetter >= 0) {
-          if (isBetter == 0)
-            highestRankingIndex.push(i);
-          else
-            highestRankingIndex = [i];
+          if (isBetter == 0) highestRankingIndex.push(i);
+          else highestRankingIndex = [i];
           highestRanking = handranking;
         }
       }
@@ -127,10 +129,9 @@ export default class OddsCalculator {
         let isWinning = false;
         let isTie = false;
         if (highestRankingIndex.length > 1) {
-          isTie = (highestRankingIndex.indexOf(i) > -1);
-        }
-        else {
-          isWinning = (highestRankingIndex.indexOf(i) > -1);
+          isTie = highestRankingIndex.indexOf(i) > -1;
+        } else {
+          isWinning = highestRankingIndex.indexOf(i) > -1;
         }
         equities[i].addPossibility(isWinning, isTie);
       }
@@ -159,23 +160,20 @@ export default class OddsCalculator {
           remainingCards.getCard(index2),
           remainingCards.getCard(index3),
           remainingCards.getCard(index4),
-          remainingCards.getCard(index5),
+          remainingCards.getCard(index5)
         ]);
         selectWinners(simulatedBoard);
       }
-    }
-    else if (board.length() >= 5) {
+    } else if (board.length() >= 5) {
       iterations = 1;
       selectWinners(board);
-    }
-    else if (board.length() === 4) {
+    } else if (board.length() === 4) {
       for (const c of remainingCards.getCards()) {
         const simulatedBoard = board.concat(new CardGroup([c]));
         iterations++;
         selectWinners(simulatedBoard);
       }
-    }
-    else if (board.length() === 3) {
+    } else if (board.length() === 3) {
       for (let a = 0; a < remainingCount; a++) {
         for (let b = a + 1; b < remainingCount; b++) {
           let highestRanking = null;

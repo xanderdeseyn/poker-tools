@@ -1,15 +1,16 @@
-import _ from 'lodash';
-import Card from './Card';
+import _ from "lodash";
+import Card from "./Card";
 
 export default class CardGroup {
-
   constructor(cards) {
     this.cards = cards;
   }
 
   static fromString(s) {
-    const tmp = s.replace(/[^a-z0-9]/gi, '');
-    if (tmp.length % 2 !== 0) { throw new Error(`Invalid cards: ${s}`); }
+    const tmp = s.replace(/[^a-z0-9]/gi, "");
+    if (tmp.length % 2 !== 0) {
+      throw new Error(`Invalid cards: ${s}`);
+    }
 
     const cards = [];
     for (let i = 0; i < tmp.length; i += 2) {
@@ -17,7 +18,6 @@ export default class CardGroup {
     }
     return new CardGroup(cards);
   }
-
 
   getCards() {
     return this.cards;
@@ -44,11 +44,11 @@ export default class CardGroup {
   }
 
   toString() {
-    return this.cards.join(' ');
+    return this.cards.join(" ");
   }
 
   sortCards(type) {
-    const sorted = _.orderBy(this.cards, ['rank', 'suit'], [type, type]);
+    const sorted = _.orderBy(this.cards, ["rank", "suit"], [type, type]);
     this.cards.splice.apply(this.cards, [0, this.cards.length].concat(sorted));
   }
 
@@ -60,4 +60,3 @@ export default class CardGroup {
     return _.countBy(this.cards, type);
   }
 }
-
