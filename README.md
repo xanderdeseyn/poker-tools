@@ -8,7 +8,7 @@ The changes are:
 2. Removed the Array subclassing since this is not yet widely supported.
 3. Exposed another utility function `calculateWinner([cardgroups], board)`.
 
-*Only Texas Hold'em is supported.*
+_Only Texas Hold'em is supported._
 
 What can you do with this library:
 
@@ -18,12 +18,12 @@ What can you do with this library:
 Example code:
 
 ```js
-import { CardGroup, OddsCalculator } from 'poker-tools';
+import { CardGroup, OddsCalculator } from "poker-tools";
 
-const player1Cards = CardGroup.fromString('JhJs');
-const player2Cards = CardGroup.fromString('JdQc');
-const board = CardGroup.fromString('7s9sTs');
-const board2 = CardGroup.fromString('7s9sTdQs3d');
+const player1Cards = CardGroup.fromString("JhJs");
+const player2Cards = CardGroup.fromString("JdQc");
+const board = CardGroup.fromString("7s9sTs");
+const board2 = CardGroup.fromString("7s9sTdQs3d");
 
 const result = OddsCalculator.calculateEquity([player1Cards, player2Cards], board);
 
@@ -33,18 +33,17 @@ console.log(`Tie - ${player2Cards} - ${result.equities[1].getTiePercentage()}%`)
 
 const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
 
-console.log(result.winner);
-console.log(result.hands);
+console.log(result);
 ```
 
 Output:
+
 ```
 Player #1 - Jh Js - 75%
 Player #2 - Jd Qc - 24%
 Tie - Jd Qc - 1%
-[ 0 ]
-[ 'Pair of jacks (T,9,7 high)' ]
+[ [ { index: 0, handrank: [Object] },
+    { index: 1, handrank: [Object] } ] ]
 ```
 
-Note that `calculateWinner` returns an array because there might be multiple winners (tie).
-
+Note that `calculateWinner` returns an array or arrays to support sidepots. Hands in the same array have the same rank.
