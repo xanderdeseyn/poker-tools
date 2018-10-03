@@ -97,8 +97,7 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
-
-    console.log(result);
+    console.log(result[0]);
   });
 
   it("winner 2", () => {
@@ -107,8 +106,6 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
-
-    console.log(result);
   });
 
   it("winner 3", () => {
@@ -118,8 +115,6 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards, player3Cards], board);
-
-    console.log(result);
   });
 
   it("no board", () => {
