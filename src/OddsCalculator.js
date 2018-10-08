@@ -4,6 +4,7 @@ import Suit from "./Suit";
 import CardGroup from "./CardGroup";
 import HandRank from "./HandRank";
 import HandEquity from "./HandEquity";
+import "lodash.combinations";
 import _ from "lodash";
 
 export default class OddsCalculator {
@@ -21,10 +22,35 @@ export default class OddsCalculator {
     return this.elapsedTime;
   }
 
-  static calculateWinner(cardgroups, board) {
+  static allCombinationsOfSize(a, used, startIndex, currentSize, k) {
+    if (currentSize < k) {
+      for (let i = 0; i < a.length; i++) {}
+    }
+  }
+
+  static calculateHandrankForOmaha(board, cardgroup) {
+    const pocketCombos = _.combinations(cardgroup.getCards(), 2);
+    const boardCombos = _.combinations(board.getCards(), 3);
+
+    let highestRank = undefined;
+    for (let i = 0; i < pocketCombos.length; i++) {
+      const pocketGroup = new CardGroup(pocketCombos[i]);
+      for (let j = 0; j < boardCombos.length; j++) {
+        const boardGroup = new CardGroup(boardCombos[j]);
+        const handrank = HandRank.evaluate(pocketGroup.concat(boardGroup));
+        if (!highestRank || handrank.compareTo(highestRank) > 0) {
+          highestRank = handrank;
+        }
+      }
+    }
+
+    return highestRank;
+  }
+
+  static calculateWinner(cardgroups, board, isOmaha = false) {
     const handranks = cardgroups.map((cardgroup, i) => ({
       index: i,
-      handrank: HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup)
+      handrank: isOmaha ? OddsCalculator.calculateHandrankForOmaha(board, cardgroup) : HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup)
     }));
 
     handranks.sort((a, b) => b.handrank.compareTo(a.handrank));

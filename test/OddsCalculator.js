@@ -117,6 +117,15 @@ describe("OddsCalculator", () => {
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards, player3Cards], board);
   });
 
+  it("winner omaha", () => {
+    const player1Cards = CardGroup.fromString("QhQs7d8d");
+    const player2Cards = CardGroup.fromString("JdQc9h8c");
+    const board = CardGroup.fromString("7sJsTsKhAs");
+
+    const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board, true);
+    console.log(JSON.stringify(result, null, 2));
+  });
+
   it("no board", () => {
     const player1Cards = CardGroup.fromString("AcAh");
     const player2Cards = CardGroup.fromString("7c7h");
