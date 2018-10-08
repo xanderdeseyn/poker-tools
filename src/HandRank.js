@@ -201,47 +201,42 @@ export default class HandRank {
     return new HandRank(HandRank.HIGH_CARD, new CardGroup(cardgroup.getCards().slice(0, 5)));
   }
   toString() {
+    if (!this.highcards.getCard(0)) {
+      return "No cards";
+    }
     let showHighcards = 0;
     let s = "";
     switch (this.rank) {
       case HandRank.STRAIGHT_FLUSH:
         if (this.highcards.getCard(0).getRank() === Rank.ACE) {
-          s = "a royal flush";
+          s = "Royal flush";
         } else {
-          s = "a straight flush";
+          s = "Straight flush";
         }
         break;
       case HandRank.QUADS:
-        s = "quads " + this.highcards.getCard(0).toString(false, true, true);
+        s = "Quads";
         showHighcards = 1;
         break;
       case HandRank.FULL_HOUSE:
-        s = `a full house (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards
-          .getCard(0)
-          .toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)} and ${this.highcards
-          .getCard(4)
-          .toString(false, false, true)}${this.highcards.getCard(4).toString(false, false, true)})`;
+        s = `Full house`;
         break;
       case HandRank.FLUSH:
-        s = "a flush (" + this.highcards.getCard(0).toString(false, true) + "high)";
+        s = "Flush (" + this.highcards.getCard(0).toString(false, false, true) + "high)";
         break;
       case HandRank.STRAIGHT:
-        s = "a straight (" + this.highcards.getCard(0).toString(false, true) + "high)";
+        s = "Straight (" + this.highcards.getCard(0).toString(false, false, true) + "high)";
         break;
       case HandRank.TRIPS:
-        s = `trips (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)}${this.highcards
+        s = `Trips (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)}${this.highcards
           .getCard(0)
           .toString(false, false, true)})`;
         break;
       case HandRank.TWO_PAIRS:
-        s = `two pair (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards
-          .getCard(0)
-          .toString(false, false, true)} and ${this.highcards.getCard(2).toString(false, false, true)}${this.highcards
-          .getCard(2)
-          .toString(false, false, true)}`;
+        s = `Two pair`;
         break;
       case HandRank.PAIR:
-        s = `a pair (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)})`;
+        s = `Pair (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)})`;
         break;
       default:
         s = `${this.highcards.getCard(0).toString(false, true, false)} high`;
