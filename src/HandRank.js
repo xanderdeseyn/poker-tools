@@ -222,10 +222,10 @@ export default class HandRank {
         s = `Full house`;
         break;
       case HandRank.FLUSH:
-        s = "Flush (" + this.highcards.getCard(0).toString(false, false, true) + "high)";
+        s = "Flush (" + this.highcards.getCard(0).toString(false, false, true) + " high)";
         break;
       case HandRank.STRAIGHT:
-        s = "Straight (" + this.highcards.getCard(0).toString(false, false, true) + "high)";
+        s = "Straight (" + this.highcards.getCard(0).toString(false, false, true) + " high)";
         break;
       case HandRank.TRIPS:
         s = `Trips (${this.highcards.getCard(0).toString(false, false, true)}${this.highcards.getCard(0).toString(false, false, true)}${this.highcards
