@@ -97,7 +97,7 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
-    console.log(result[0]);
+    expect(result[0][0].index).to.equal(0);
   });
 
   it("winner 2", () => {
@@ -106,6 +106,7 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board);
+    expect(result[0].length).to.equal(2);
   });
 
   it("winner 3", () => {
@@ -115,6 +116,17 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7s9sTs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards, player3Cards], board);
+    expect(result[0][0].index).to.equal(0);
+  });
+
+  it("Omaha 1 hand winner", () => {
+    const player1Cards = CardGroup.fromString("AsKsQs8s");
+    const board = CardGroup.fromString("2s3s9h5h8d");
+
+    const result = OddsCalculator.calculateWinner([player1Cards], board, true);
+    expect(result[0][0].index).to.equal(0);
+    console.log(result[0][0]);
+    expect(result[0][0].handrank).to.not.equal(undefined);
   });
 
   it("winner omaha", () => {
@@ -123,7 +135,17 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("7sJsTsKhAs");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board, true);
-    console.log(JSON.stringify(result, null, 2));
+    expect(result[0][0].index).to.equal(1);
+  });
+
+  it("winner omaha 2", () => {
+    const player1Cards = CardGroup.fromString("AsKsQs8s");
+    const player2Cards = CardGroup.fromString("Ad9dTs7s");
+    const board = CardGroup.fromString("2s3s9h5h8d");
+
+    const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board, true);
+    console.log(result);
+    expect(result[0][0].index).to.equal(1);
   });
 
   it("no board", () => {
