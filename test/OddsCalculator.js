@@ -129,6 +129,16 @@ describe("OddsCalculator", () => {
     expect(result[0][0].handrank).to.not.equal(undefined);
   });
 
+  it("Omaha 1 hand NO BOARD", () => {
+    const player1Cards = CardGroup.fromString("AsKsQs8s");
+    const board = CardGroup.fromString("");
+
+    const result = OddsCalculator.calculateWinner([player1Cards], board, true);
+    expect(result[0][0].index).to.equal(0);
+    console.log(result[0][0]);
+    expect(result[0][0].handrank).to.not.equal(undefined);
+  });
+
   it("winner omaha", () => {
     const player1Cards = CardGroup.fromString("QhQs7d8d");
     const player2Cards = CardGroup.fromString("JdQc9h8c");

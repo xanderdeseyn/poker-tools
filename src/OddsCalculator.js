@@ -35,11 +35,18 @@ export default class OddsCalculator {
     let highestRank = undefined;
     for (let i = 0; i < pocketCombos.length; i++) {
       const pocketGroup = new CardGroup(pocketCombos[i]);
-      for (let j = 0; j < boardCombos.length; j++) {
-        const boardGroup = new CardGroup(boardCombos[j]);
-        const handrank = HandRank.evaluate(pocketGroup.concat(boardGroup));
+      if (boardCombos.length === 0) {
+        const handrank = HandRank.evaluate(pocketGroup);
         if (!highestRank || handrank.compareTo(highestRank) > 0) {
           highestRank = handrank;
+        }
+      } else {
+        for (let j = 0; j < boardCombos.length; j++) {
+          const boardGroup = new CardGroup(boardCombos[j]);
+          const handrank = HandRank.evaluate(pocketGroup.concat(boardGroup));
+          if (!highestRank || handrank.compareTo(highestRank) > 0) {
+            highestRank = handrank;
+          }
         }
       }
     }
