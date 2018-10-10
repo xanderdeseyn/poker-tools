@@ -119,13 +119,41 @@ describe("OddsCalculator", () => {
     expect(result[0][0].index).to.equal(0);
   });
 
+  it("No cards set in omaha", () => {
+    const player1Cards = CardGroup.fromString("");
+    const board = CardGroup.fromString("4s5s8dAdAs");
+
+    const result = OddsCalculator.calculateWinner([player1Cards], board, true);
+    console.log(JSON.stringify(result, null, 2));
+    expect(result.length).to.equal(1);
+    expect(result[0][0].handrank).to.not.equal(undefined);
+  });
+
+  it("No cards and no board set in omaha", () => {
+    const player1Cards = CardGroup.fromString("");
+    const board = CardGroup.fromString("");
+
+    const result = OddsCalculator.calculateWinner([player1Cards], board, true);
+    console.log(JSON.stringify(result, null, 2));
+    expect(result.length).to.equal(1);
+    expect(result[0][0].handrank).to.not.equal(undefined);
+  });
+
+  it("No cards set in holdem", () => {
+    const player1Cards = CardGroup.fromString("");
+    const board = CardGroup.fromString("4s5s8dAdAs");
+
+    const result = OddsCalculator.calculateWinner([player1Cards], board);
+    expect(result.length).to.equal(1);
+    expect(result[0][0].handrank).to.not.equal(undefined);
+  });
+
   it("Omaha 1 hand winner", () => {
     const player1Cards = CardGroup.fromString("AsKsQs8s");
     const board = CardGroup.fromString("2s3s9h5h8d");
 
     const result = OddsCalculator.calculateWinner([player1Cards], board, true);
     expect(result[0][0].index).to.equal(0);
-    console.log(result[0][0]);
     expect(result[0][0].handrank).to.not.equal(undefined);
   });
 
@@ -135,7 +163,6 @@ describe("OddsCalculator", () => {
 
     const result = OddsCalculator.calculateWinner([player1Cards], board, true);
     expect(result[0][0].index).to.equal(0);
-    console.log(result[0][0]);
     expect(result[0][0].handrank).to.not.equal(undefined);
   });
 
@@ -154,7 +181,6 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("2s3s9h5h8d");
 
     const result = OddsCalculator.calculateWinner([player1Cards, player2Cards], board, true);
-    console.log(result);
     expect(result[0][0].index).to.equal(1);
   });
 

@@ -42,7 +42,7 @@ describe("HandRank", () => {
         .getRank()
     ).to.equal(Rank.TEN);
 
-    expect(handrank.toString()).to.equal("a royal flush");
+    expect(handrank.toString()).to.equal("Royal flush");
   });
 
   it("detects straight flush", () => {

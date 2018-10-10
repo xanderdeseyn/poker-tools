@@ -32,6 +32,10 @@ export default class OddsCalculator {
     const pocketCombos = _.combinations(cardgroup.getCards(), 2);
     const boardCombos = _.combinations(board.getCards(), 3);
 
+    if (!cardgroup.getCard(0)) {
+      return HandRank.evaluate(cardgroup);
+    }
+
     let highestRank = undefined;
     for (let i = 0; i < pocketCombos.length; i++) {
       const pocketGroup = new CardGroup(pocketCombos[i]);
@@ -59,6 +63,8 @@ export default class OddsCalculator {
       index: i,
       handrank: isOmaha ? OddsCalculator.calculateHandrankForOmaha(board, cardgroup) : HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup)
     }));
+
+    console.log(handranks);
 
     handranks.sort((a, b) => b.handrank.compareTo(a.handrank));
 
