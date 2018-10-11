@@ -124,7 +124,6 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("4s5s8dAdAs");
 
     const result = OddsCalculator.calculateWinner([player1Cards], board, true);
-    console.log(JSON.stringify(result, null, 2));
     expect(result.length).to.equal(1);
     expect(result[0][0].handrank).to.not.equal(undefined);
   });
@@ -134,7 +133,6 @@ describe("OddsCalculator", () => {
     const board = CardGroup.fromString("");
 
     const result = OddsCalculator.calculateWinner([player1Cards], board, true);
-    console.log(JSON.stringify(result, null, 2));
     expect(result.length).to.equal(1);
     expect(result[0][0].handrank).to.not.equal(undefined);
   });

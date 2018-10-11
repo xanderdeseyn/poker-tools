@@ -64,8 +64,6 @@ export default class OddsCalculator {
       handrank: isOmaha ? OddsCalculator.calculateHandrankForOmaha(board, cardgroup) : HandRank.evaluate(board ? cardgroup.concat(board) : cardgroup)
     }));
 
-    console.log(handranks);
-
     handranks.sort((a, b) => b.handrank.compareTo(a.handrank));
 
     const result = [[handranks[0]]];
