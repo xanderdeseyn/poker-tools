@@ -1,6 +1,6 @@
 {
   "name": "poker-tools",
-  "version": "1.3.9",
+  "version": "1.3.10",
   "description": "A set of poker tools (equity calculating, checking winner of hand, etc).",
   "main": "./dist/index.js",
   "scripts": {
